@@ -1,0 +1,10 @@
+# Mac files
+.DS_Store
+
+# DB volume
+db-data/
+
+# Jupyter notebook used for testing
+*.ipynb
+
+__pycache__/
