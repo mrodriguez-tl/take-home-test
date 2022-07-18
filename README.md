@@ -21,13 +21,13 @@ make up
 poetry run python main.py initialize_db
 ```
 
-## Get the last known position of a satellite (by id), given a time.
+## Get the last known position of a satellite (by id), at a give time
 The time can be in `yyyymmdd` or `yyyy-mm-dd` formats, or in timestamp format: `yyyy-mm-ddTHH:MM:SS`
 ```py
 poetry run python main.py get_by_id -- 5eed7714096e590006985660 20220101
 ```
 ```py
-poetry run python main.py get_by_id -- 5eed7714096e590006985660 2020-03-01T19:34:00
+poetry run python main.py get_by_id -- 5eed7714096e590006985660 2020-03-01
 ```
 ```py
 poetry run python main.py get_by_id -- 5eed7714096e590006985660 2021-01-26T19:34:00
