@@ -11,7 +11,7 @@ class StarlinkRecord(SQLModel, table=True):
     creation_date: datetime
     latitude: Optional[float] = None
     longitude: Optional[int] = None
-    satelite_id: str = Field(index=True)
+    satellite_id: str = Field(index=True)
 
 
 engine = create_engine(POSTGRES_URI)

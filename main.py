@@ -23,13 +23,13 @@ def load_data():
             creation_date = row["spaceTrack"]["CREATION_DATE"]
             latitude = row["latitude"]
             longitude = row["longitude"]
-            satelite_id = row["id"]
+            satellite_id = row["id"]
 
             starlink_record = StarlinkRecord(
                 creation_date=creation_date,
                 latitude=latitude,
                 longitude=longitude,
-                satelite_id=satelite_id,
+                satellite_id=satellite_id,
             )
             session.add(starlink_record)
         session.commit()
