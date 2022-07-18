@@ -21,32 +21,45 @@ def init_db_and_data():
     """Create the starlinkrecord table and load data
     from the provided json file"""
 
-    create_table()
+    try:
+        create_table()
 
-    with open("data/starlink_historical_data.json", "r") as json_file:
-        data = json.load(json_file)
+        with open("data/starlink_historical_data.json", "r") as json_file:
+            data = json.load(json_file)
 
-    with Session(engine) as session:
-        for row in data:
-            creation_date = row["spaceTrack"]["CREATION_DATE"]
-            latitude = str(row["latitude"])
-            longitude = str(row["longitude"])
-            satellite_id = row["id"]
+        with Session(engine) as session:
+            for row in data:
+                creation_date = row["spaceTrack"]["CREATION_DATE"]
+                latitude = str(row["latitude"])
+                longitude = str(row["longitude"])
+                satellite_id = row["id"]
 
-            starlink_record = StarlinkRecord(
-                creation_date=creation_date,
-                latitude=latitude,
-                longitude=longitude,
-                satellite_id=satellite_id,
-            )
-            session.add(starlink_record)
+                starlink_record = StarlinkRecord(
+                    creation_date=creation_date,
+                    latitude=latitude,
+                    longitude=longitude,
+                    satellite_id=satellite_id,
+                )
+                session.add(starlink_record)
 
-        session.commit()
+            session.commit()
+        print("Successfully loaded data into DB")
+
+    except Exception as e:
+        print(f"An error occurred while loading data into the db: {e}")
 
 
 @app.command(name="get_by_id")
 def get_position_by_id(id: str, datetime: str) -> str:
     """Get the last known position of a satellite by id at a given time
+
+    args:
+      id - the satellide id
+      datetime - a date or datetime, e.g, 20210101, 2021-03-01, 2020-03-01T19:34:00
+    
+    return:
+      (lat, long) - Some coordinates can be None. Also, will print "Not Found"
+                    when there is no data in the db for the given id or time
     """
     with Session(engine) as session:
         statement = select(StarlinkRecord).where(
