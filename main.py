@@ -4,11 +4,12 @@ import typer
 
 from dateutil.parser import parse
 
+# This is needed to avoid SAWarning messages when running CLI commands
 from sqlmodel import col, select, Session
 from sqlmodel.sql.expression import Select, SelectOfScalar
 
-SelectOfScalar.inherit_cache = True  # type: ignore
-Select.inherit_cache = True  # type: ignore
+SelectOfScalar.inherit_cache = True
+Select.inherit_cache = True
 
 from model import create_table, StarlinkRecord, engine
 

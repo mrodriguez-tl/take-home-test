@@ -9,8 +9,8 @@ POSTGRES_URI = "postgresql://postgres:postgres@0.0.0.0:5432/postgres"
 class StarlinkRecord(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     creation_date: datetime
-    latitude: Optional[str] = None  # All latitudes in the json file are float or None
-    longitude: Optional[str] = None  # All longitudes in the json file are int or None
+    latitude: Optional[str] = None
+    longitude: Optional[str] = None
     satellite_id: str = Field(index=True)
 
 
